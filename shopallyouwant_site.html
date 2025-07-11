@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShopAllYouWant</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      background: #f8f9fa;
+      color: #333;
+    }
+    header {
+      background: #fff;
+      padding: 20px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .product {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      padding: 10px;
+      text-align: center;
+    }
+    .product img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px;
+      border: none;
+      background: #28a745;
+      color: #fff;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #218838;
+    }
+    .cart {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 10px;
+      max-width: 300px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .cart h3 {
+      margin-top: 0;
+    }
+  </style>
+</head>
+<body>
+  <header>ShopAllYouWant</header>
+
+  <div class="cart">
+    <h3>Your Cart</h3>
+    <ul id="cart-items"></ul>
+  </div>
+
+  <div class="products" id="product-list"></div>
+
+  <script>
+    const products = [
+      { name: 'Product 1', price: 10 },
+      { name: 'Product 2', price: 15 },
+      { name: 'Product 3', price: 20 },
+      { name: 'Product 4', price: 25 },
+      { name: 'Product 5', price: 30 }
+    ];
+
+    const cart = [];
+
+    const productList = document.getElementById('product-list');
+    products.forEach((p, i) => {
+      const div = document.createElement('div');
+      div.className = 'product';
+      div.innerHTML = `
+        <img src="https://via.placeholder.com/200x150" alt="${p.name}">
+        <h4>${p.name}</h4>
+        <p>$${p.price.toFixed(2)}</p>
+        <button onclick="addToCart('${p.name}', ${p.price})">Add to Cart</button>
+      `;
+      productList.appendChild(div);
+    });
+
+    function addToCart(product, price) {
+      cart.push({ product, price });
+      updateCart();
+    }
+
+    function updateCart() {
+      const cartItems = document.getElementById('cart-items');
+      cartItems.innerHTML = '';
+      cart.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = `${item.product} - $${item.price.toFixed(2)}`;
+        cartItems.appendChild(li);
+      });
+    }
+  </script>
+</body>
+</html>
